@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOK YOUR TRAIN - Indian Railway Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="reference-design.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="main-navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-train brand-icon"></i>
+                <span class="brand-text">BOOK YOUR TRAIN</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#" onclick="showPage('home')" class="nav-link active">Home</a>
+                <a href="#" onclick="showPage('blog')" class="nav-link">Blog</a>
+                <a href="#" onclick="showPage('gallery')" class="nav-link">Gallery</a>
+                <div class="nav-dropdown">
+                    <a href="#" onclick="showPage('pages')" class="nav-link">Pages <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="showPage('reviews')">Reviews</a>
+                        <a href="#" onclick="showPage('mytickets')">My Tickets</a>
+                        <a href="#" onclick="showPage('profile')">Profile</a>
+                        <a href="#" onclick="showPage('searchcancel')">Search/Cancel</a>
+                        <a href="#" onclick="showPage('weather')">Weather</a>
+                        <a href="#" onclick="showPage('dashboard')">Dashboard</a>
+                        <a href="#" onclick="showPage('stationservices')">Station Services</a>
+                        <a href="#" onclick="showPage('foodordering')">Food Ordering</a>
+                    </div>
+                </div>
+                <a href="#" onclick="showPage('about')" class="nav-link">About</a>
+            </div>
+            <div class="nav-auth" id="navAuth">
+                <button class="auth-btn" onclick="showRegister()">Sign Up</button>
+                <button class="auth-btn login" onclick="showLogin()">Login</button>
+            </div>
+            <div class="user-profile" id="userProfile" style="display: none;">
+                <span id="navUsername">User</span>
+                <button onclick="logout()" class="logout-btn">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Success/Error Messages -->
+    <div id="messageContainer"></div>
+
+    <!-- Home Page -->
+    <div id="homePage" class="page active">
+        <!-- Hero Section -->
+        <div class="hero-banner">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>WELCOME TO<br>BOOK YOUR TRAIN</h1>
+                    <p>We saves your time both while purchasing,<br>the check-in and during the travel</p>
+                </div>
+                <div class="booking-form-container">
+                    <div class="booking-form">
+                        <div class="form-section">
+                            <h3>Travelling Route</h3>
+                            <div class="route-inputs">
+                                <input type="text" placeholder="From" id="heroFrom" list="cities">
+                                <button class="swap-btn" onclick="swapRoutes()"><i class="fas fa-exchange-alt"></i></button>
+                                <input type="text" placeholder="To" id="heroTo" list="cities">
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <h3>Travelling Date</h3>
+                            <div class="date-inputs">
+                                <input type="date" id="heroDate">
+                                <select id="tripType">
+                                    <option>One Way</option>
+                                    <option>Round Trip</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <h3>Travelling Persons</h3>
+                            <div class="person-inputs">
+                                <select id="adults">
+                                    <option>1 Adult</option>
+                                    <option>2 Adults</option>
+                                    <option>3 Adults</option>
+                                    <option>4 Adults</option>
+                                </select>
+                                <select id="kids">
+                                    <option>0 Kids</option>
+                                    <option>1 Kid</option>
+                                    <option>2 Kids</option>
+                                    <option>3 Kids</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="search-tickets-btn" onclick="searchFromHero()">SEARCH TICKETS</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Steps -->
+        <div class="booking-steps">
+            <div class="step active">
+                <span class="step-number">1</span>
+                <span class="step-text">TICKETS</span>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-text">PASSENGERS</span>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-text">PAYMENT</span>
+            </div>
+            <div class="step">
+                <span class="step-number">4</span>
+                <span class="step-text">VALIDATION</span>
+            </div>
+        </div>
+
+        <!-- Train Results Section -->
+        <div class="train-results-section">
+            <div class="results-container">
+                <div class="filter-sidebar">
+                    <h3>Filter by</h3>
+                    <div class="filter-group">
+                        <h4>Coach type</h4>
+                        <label><input type="checkbox" checked> Third class sleeping</label>
+                        <label><input type="checkbox" checked> Second class sleeping</label>
+                        <label><input type="checkbox" checked> AC First Class</label>
+                        <label><input type="checkbox"> Sleeper</label>
+                    </div>
+                    <div class="filter-group">
+                        <h4>Departure time</h4>
+                        <label><input type="checkbox"> Morning (6AM-12PM)</label>
+                        <label><input type="checkbox"> Afternoon (12PM-6PM)</label>
+                        <label><input type="checkbox"> Evening (6PM-12AM)</label>
+                        <label><input type="checkbox"> Night (12AM-6AM)</label>
+                    </div>
+                </div>
+                <div class="results-main">
+                    <div class="results-header">
+                        <span id="resultsCount">10 of 12 found</span>
+                        <div class="sort-controls">
+                            <select id="sortBy">
+                                <option>Sort by time</option>
+                                <option>Sort by price</option>
+                                <option>Sort by duration</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="train-cards" id="trainCards"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Page -->
+        <div class="success-section" id="successSection" style="display: none;">
+            <div class="success-content">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h1>THANK YOU!</h1>
+                <p>BOOKING PROCESS IS SUCCESSFULLY COMPLETED</p>
+                <div class="eticket-instruction">
+                    <h3>E-TICKET INSTRUCTION</h3>
+                    <div class="instruction-icons">
+                        <div class="instruction-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <p>Download mobile app</p>
+                        </div>
+                        <div class="instruction-item">
+                            <i class="fas fa-ticket-alt"></i>
+                            <p>Show e-ticket</p>
+                        </div>
+                        <div class="instruction-item">
+                            <i class="fas fa-id-card"></i>
+                            <p>Bring valid ID</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Page -->
+    <div id="blogPage" class="page">
+        <div class="blog-hero">
+            <h1>BLOG</h1>
+        </div>
+        <div class="blog-content">
+            <div class="blog-sidebar">
+                <div class="blog-search">
+                    <h3>Blog search</h3>
+                    <input type="text" placeholder="search...">
+                </div>
+                <div class="blog-categories">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li onclick="filterBlog('transport')">Transport News <span>24</span></li>
+                        <li onclick="filterBlog('trains')">Trains <span>18</span></li>
+                        <li onclick="filterBlog('tourism')">Tourism <span>9</span></li>
+                        <li onclick="filterBlog('railway')">Railway <span>12</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="blog-main">
+                <div class="blog-header">
+                    <span>Latest Railway News & Updates</span>
+                    <div class="blog-controls">
+                        <select>
+                            <option>Sort by date</option>
+                            <option>Sort by popularity</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="blog-posts">
+                    <article class="blog-post">
+                        <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=800&h=400&fit=crop" alt="Railway Station">
+                        <div class="blog-post-content">
+                            <h3>Indian Railways: Journey Through Heritage</h3>
+                            <p>Discover the rich history and modern developments of Indian Railways, connecting the nation from Kashmir to Kanyakumari.</p>
+                            <div class="blog-meta">
+                                <span>December 15, 2024</span>
+                                <a href="#" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Page -->
+    <div id="galleryPage" class="page">
+        <div class="gallery-hero">
+            <h1>GALLERY</h1>
+        </div>
+        <div class="gallery-content">
+            <div class="gallery-filters">
+                <button class="filter-btn active" onclick="filterGallery('trains')">Trains</button>
+                <button class="filter-btn" onclick="filterGallery('stations')">Stations</button>
+                <button class="filter-btn" onclick="filterGallery('express')">Express</button>
+                <button class="filter-btn" onclick="filterGallery('heritage')">Heritage</button>
+                <button class="filter-btn" onclick="filterGallery('modern')">Modern</button>
+                <button class="filter-btn" onclick="filterGallery('scenic')">Scenic Routes</button>
+            </div>
+            <div class="gallery-grid">
+                <!-- Gallery images will be loaded by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="aboutPage" class="page">
+        <div class="about-hero">
+            <h1>ABOUT BOOK YOUR TRAIN</h1>
+            <p>Your trusted partner for seamless train reservations across India</p>
+        </div>
+        <div class="about-content">
+            <div class="about-section">
+                <h2>Our Mission</h2>
+                <p>BOOK YOUR TRAIN is dedicated to revolutionizing train travel in India by providing a comprehensive, user-friendly platform for booking train tickets. We strive to make railway travel accessible, convenient, and enjoyable for millions of passengers across the country.</p>
+            </div>
+            <div class="about-section">
+                <h2>Why Choose BOOK YOUR TRAIN?</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-clock"></i>
+                        <h3>24/7 Booking</h3>
+                        <p>Book tickets anytime, anywhere with our round-the-clock service</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Secure Payments</h3>
+                        <p>Safe and secure payment gateway with multiple payment options</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Mobile Friendly</h3>
+                        <p>Responsive design that works perfectly on all devices</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-headset"></i>
+                        <h3>24/7 Support</h3>
+                        <p>Dedicated customer support team to assist you</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-section">
+                <h2>Contact Information</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91-139-2131234</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>support@bookyourtrain.in</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Jaipur India</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pages Page -->
+    <div id="pagesPage" class="page">
+        <div class="pages-hero">
+            <h1>ALL PAGES</h1>
+            <p>Explore all available features and services</p>
+        </div>
+        <div class="pages-content">
+            <div class="pages-grid">
+                <div class="page-item" onclick="showPage('reviews')">
+                    <i class="fas fa-star"></i>
+                    <h3>Reviews</h3>
+                    <p>Rate and review train services</p>
+                </div>
+                <div class="page-item" onclick="showPage('mytickets')">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h3>My Tickets</h3>
+                    <p>View and manage your bookings</p>
+                </div>
+                <div class="page-item" onclick="showPage('searchcancel')">
+                    <i class="fas fa-search"></i>
+                    <h3>Search/Cancel</h3>
+                    <p>Find and cancel existing tickets</p>
+                </div>
+                <div class="page-item" onclick="showPage('weather')">
+                    <i class="fas fa-cloud-sun"></i>
+                    <h3>Weather</h3>
+                    <p>Check weather for your journey</p>
+                </div>
+
+                <div class="page-item" onclick="showPage('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>Dashboard</h3>
+                    <p>Personal travel dashboard</p>
+                </div>
+                <div class="page-item" onclick="showPage('stationservices')">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Station Services</h3>
+                    <p>Hotels, restaurants & amenities</p>
+                </div>
+                <div class="page-item" onclick="showPage('foodordering')">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Food Ordering</h3>
+                    <p>Order food to your train</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews Page -->
+    <div id="reviewsPage" class="page">
+        <div class="reviews-hero">
+            <h1>REVIEWS & RATINGS</h1>
+            <p>Share your travel experience and help others</p>
+        </div>
+        <div class="reviews-content">
+            <div class="review-form-section">
+                <h2>Write a Review</h2>
+                <form id="reviewForm">
+                    <div class="form-group">
+                        <label>Select Train</label>
+                        <select id="reviewTrain" required>
+                            <option value="">Choose train to review</option>
+                        </select>
+                    </div>
+                    <div class="rating-section">
+                        <label>Rating:</label>
+                        <div class="star-rating">
+                            <input type="radio" name="rating" value="5" id="star5">
+                            <label for="star5">★</label>
+                            <input type="radio" name="rating" value="4" id="star4">
+                            <label for="star4">★</label>
+                            <input type="radio" name="rating" value="3" id="star3">
+                            <label for="star3">★</label>
+                            <input type="radio" name="rating" value="2" id="star2">
+                            <label for="star2">★</label>
+                            <input type="radio" name="rating" value="1" id="star1">
+                            <label for="star1">★</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Review</label>
+                        <textarea id="reviewText" placeholder="Share your detailed experience about the train service, cleanliness, food, staff behavior, punctuality, etc..." required rows="6"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Submit Review</button>
+                </form>
+            </div>
+            <div class="reviews-display">
+                <div class="reviews-filter">
+                    <h3>Filter Reviews</h3>
+                    <select id="reviewFilter" onchange="filterReviews()">
+                        <option value="">All Trains</option>
+                    </select>
+                </div>
+                <div class="reviews-list" id="reviewsList">
+                    <p>No reviews yet. Be the first to review!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Tickets Page -->
+    <div id="myticketsPage" class="page">
+        <div class="tickets-hero">
+            <h1>MY TICKETS</h1>
+            <p>Manage all your train bookings</p>
+        </div>
+        <div class="tickets-content" id="ticketsContent">
+            <div class="login-required">
+                <i class="fas fa-lock"></i>
+                <h3>Login Required</h3>
+                <p>Please login to view your tickets</p>
+                <button class="btn-primary" onclick="showLogin()">Login Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search/Cancel Page -->
+    <div id="searchcancelPage" class="page">
+        <div class="search-hero">
+            <h1>SEARCH & CANCEL TICKETS</h1>
+            <p>Find and manage your existing bookings</p>
+        </div>
+        <div class="search-content">
+            <div class="search-form-section">
+                <h2>Search Ticket</h2>
+                <form id="searchForm">
+                    <div class="form-group">
+                        <label>Ticket ID</label>
+                        <input type="text" id="ticketId" placeholder="Enter your ticket ID (e.g., TKT1234567890)" required>
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Search Ticket</button>
+                </form>
+            </div>
+            <div id="ticketResults"></div>
+        </div>
+    </div>
+
+    <!-- Weather Page -->
+    <div id="weatherPage" class="page">
+        <div class="weather-hero">
+            <h1>WEATHER FORECAST</h1>
+            <p>Check weather conditions for your journey</p>
+        </div>
+        <div class="weather-content">
+            <div class="weather-search">
+                <select id="weatherCity">
+                    <option value="">Select City</option>
+                    <option value="delhi">New Delhi</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="kolkata">Kolkata</option>
+                    <option value="chennai">Chennai</option>
+                    <option value="bangalore">Bangalore</option>
+                </select>
+                <button onclick="getWeather()" class="btn-primary">Get Weather</button>
+            </div>
+            <div id="weatherDisplay" class="weather-display">
+                <!-- Weather cards will be loaded by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Find Trains Page -->
+    <div id="findtrainsPage" class="page">
+        <div class="findtrains-hero">
+            <h1>FIND TRAINS</h1>
+            <p>Advanced search with filters and sorting</p>
+        </div>
+        <div class="findtrains-content">
+            <div class="search-filters">
+                <form id="trainSearchForm">
+                    <div class="filter-row">
+                        <input type="text" id="fromCity" placeholder="From City" list="cities">
+                        <input type="text" id="toCity" placeholder="To City" list="cities">
+                        <input type="date" id="searchDate">
+                    </div>
+                    <div class="filter-row">
+                        <select id="priceFilter">
+                            <option value="">Any Price</option>
+                            <option value="0-1000">Under ₹1000</option>
+                            <option value="1000-2000">₹1000-2000</option>
+                            <option value="2000-3000">₹2000-3000</option>
+                            <option value="3000-5000">Above ₹3000</option>
+                        </select>
+                        <select id="timeFilter">
+                            <option value="">Any Time</option>
+                            <option value="morning">Morning (6AM-12PM)</option>
+                            <option value="afternoon">Afternoon (12PM-6PM)</option>
+                            <option value="evening">Evening (6PM-12AM)</option>
+                            <option value="night">Night (12AM-6AM)</option>
+                        </select>
+                        <button type="submit" class="btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>
+            <div class="trains-results">
+                <div class="results-header">
+                    <span id="trainsTitle">All Available Trains</span>
+                    <select id="sortBy" onchange="sortTrains(this.value)">
+                        <option value="time">Sort by Time</option>
+                        <option value="price">Sort by Price</option>
+                        <option value="name">Sort by Name</option>
+                    </select>
+                </div>
+                <div class="trains-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Train</th>
+                                <th>Route</th>
+                                <th>Departure</th>
+                                <th>Arrival</th>
+                                <th>Seats</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trainTableBody"></tbody>
+                    </table>
+                </div>
+                <div id="noTrainsFound" style="display: none;">
+                    <p>No trains found matching your criteria.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page">
+        <div class="dashboard-hero">
+            <h1>DASHBOARD</h1>
+            <p>Your personal travel overview</p>
+        </div>
+        <div class="dashboard-content" id="dashboardContent">
+            <div class="login-required">
+                <i class="fas fa-lock"></i>
+                <h3>Login Required</h3>
+                <p>Please login to view your dashboard</p>
+                <button class="btn-primary" onclick="showLogin()">Login Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profilePage" class="page">
+        <div class="profile-hero">
+            <h1>MY PROFILE</h1>
+            <p>Manage your account information</p>
+        </div>
+        <div class="profile-content" id="profileContent">
+            <div class="login-required">
+                <i class="fas fa-lock"></i>
+                <h3>Login Required</h3>
+                <p>Please login to view your profile</p>
+                <button class="btn-primary" onclick="showLogin()">Login Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Bookings Page -->
+    <div id="mybookingsPage" class="page">
+        <div class="bookings-hero">
+            <h1>MY BOOKINGS</h1>
+            <p>View all your train reservations</p>
+        </div>
+        <div class="bookings-content" id="bookingsContent">
+            <div class="login-required">
+                <i class="fas fa-lock"></i>
+                <h3>Login Required</h3>
+                <p>Please login to view your bookings</p>
+                <button class="btn-primary" onclick="showLogin()">Login Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Station Services Page -->
+    <div id="stationservicesPage" class="page">
+        <div class="services-hero">
+            <h1>STATION SERVICES</h1>
+            <p>Find hotels, restaurants, malls & hospitals near stations</p>
+        </div>
+        <div class="services-content">
+            <div class="station-search">
+                <select id="stationSelect">
+                    <option value="">Select Station</option>
+                    <option value="NDLS">New Delhi (NDLS)</option>
+                    <option value="CSTM">Mumbai CST (CSTM)</option>
+                    <option value="HWH">Howrah (HWH)</option>
+                    <option value="MAS">Chennai Central (MAS)</option>
+                    <option value="SBC">Bangalore City (SBC)</option>
+                </select>
+                <button onclick="searchStationServices()" class="btn-primary">Search Services</button>
+            </div>
+            <div class="services-tabs">
+                <button class="tab-btn active" onclick="showServiceTab('hotels')">Hotels</button>
+                <button class="tab-btn" onclick="showServiceTab('restaurants')">Restaurants</button>
+                <button class="tab-btn" onclick="showServiceTab('malls')">Malls</button>
+                <button class="tab-btn" onclick="showServiceTab('hospitals')">Hospitals</button>
+            </div>
+            <div id="servicesResults" class="services-results">
+                <p>Select a station to view nearby services</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Food Ordering Page -->
+    <div id="foodorderingPage" class="page">
+        <div class="food-hero">
+            <h1>FOOD ORDERING</h1>
+            <p>Order delicious meals to your train</p>
+        </div>
+        <div class="food-content">
+            <div class="order-search">
+                <input type="text" id="trainNumber" placeholder="Enter Train Number (e.g., 12345)">
+                <input type="text" id="stationCode" placeholder="Station Code (e.g., NDLS)">
+                <button onclick="searchFoodOptions()" class="btn-primary">Search Food Options</button>
+            </div>
+            <div class="food-categories">
+                <button class="category-btn active" onclick="showFoodCategory('veg')">Vegetarian</button>
+                <button class="category-btn" onclick="showFoodCategory('nonveg')">Non-Vegetarian</button>
+                <button class="category-btn" onclick="showFoodCategory('snacks')">Snacks</button>
+                <button class="category-btn" onclick="showFoodCategory('beverages')">Beverages</button>
+            </div>
+            <div id="foodMenu" class="food-menu">
+                <p>Enter train details to view food menu</p>
+            </div>
+            <div id="cartSection" class="cart-section" style="display: none;">
+                <h3>Your Order</h3>
+                <div id="cartItems"></div>
+                <div class="cart-total">
+                    <strong>Total: ₹<span id="cartTotal">0</span></strong>
+                </div>
+                <button onclick="placeOrder()" class="btn-primary full-width">Place Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content login-modal">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <div class="login-form-section">
+                <h2>Login</h2>
+                <div id="loginMessageContainer"></div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>Enter your E-mail *</label>
+                        <input type="email" id="loginEmail" placeholder="example@mail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Enter your password *</label>
+                        <input type="password" id="loginPassword" placeholder="********" required>
+                    </div>
+                    <div class="form-options">
+                        <label><input type="checkbox"> Remember</label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="login-btn">Login</button>
+                    <button type="button" class="facebook-btn">Login with Facebook</button>
+                    <button type="button" class="google-btn">Login with Google+</button>
+                </form>
+            </div>
+            <div class="login-note-section">
+                <h3>LOGIN NOTE</h3>
+                <p>Access your account to manage bookings, view travel history, and enjoy personalized services. Your journey with Indian Railways starts here.</p>
+                <p>Experience seamless booking and travel planning with our comprehensive platform designed for modern travelers.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Create Account</h2>
+            <div id="registerMessageContainer"></div>
+            <form id="registerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="regFullName" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="regUsername" placeholder="Username" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="email" id="regEmail" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="regPhone" placeholder="Phone Number (10 digits)" pattern="[0-9]{10}" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="number" id="regAge" placeholder="Age" min="1" max="120" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="regGender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="regAadhar" placeholder="Aadhar Number (12 digits)" pattern="[0-9]{12}" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="regAddress" placeholder="Address" required rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="regPassword" placeholder="Password (min 6 characters)" minlength="6" required>
+                </div>
+                <button type="submit" class="btn-primary full-width">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <datalist id="cities">
+        <option value="New Delhi">
+        <option value="Mumbai">
+        <option value="Kolkata">
+        <option value="Chennai">
+        <option value="Hyderabad">
+        <option value="Bangalore">
+        <option value="Pune">
+        <option value="Ahmedabad">
+        <option value="Jaipur">
+        <option value="Lucknow">
+        <option value="Chandigarh">
+        <option value="Bhopal">
+        <option value="Patna">
+        <option value="Thiruvananthapuram">
+        <option value="Guwahati">
+    </datalist>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+/* Modern Widgets and Features */
+
+/* Weather Widget */
+.weather-widget {
+    position: fixed;
+    top: 100px;
+    left: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.weather-widget:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(31, 38, 135, 0.5);
+}
+
+.weather-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    font-weight: 600;
+}
+
+.weather-info i {
+    font-size: 1.2rem;
+    color: #ffd700;
+}
+
+.weather-temp {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.weather-city {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Live Status Widget */
+.live-status-widget {
+    position: fixed;
+    bottom: 100px;
+    right: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    z-index: 1000;
+    min-width: 200px;
+    transition: all 0.3s ease;
+}
+
+.live-status-widget:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(31, 38, 135, 0.5);
+}
+
+.live-status-widget h4 {
+    color: white;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.live-status-widget h4 i {
+    color: #4facfe;
+    animation: pulse 2s infinite;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.3rem 0;
+}
+
+.train-name {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.status.on-time {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+}
+
+.status.delayed {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+/* Loyalty Points */
+.loyalty-points {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-left: 1rem;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.loyalty-points:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+.loyalty-points i {
+    color: #ff6b35;
+    animation: sparkle 2s infinite;
+}
+
+/* Notifications */
+.notification {
+    position: fixed;
+    top: 2rem;
+    right: -400px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 350px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.notification.show {
+    right: 2rem;
+}
+
+.notification.success {
+    border-left: 4px solid #4facfe;
+}
+
+.notification.error {
+    border-left: 4px solid #f5576c;
+}
+
+.notification.info {
+    border-left: 4px solid #667eea;
+}
+
+.notification i {
+    font-size: 1.2rem;
+}
+
+.notification.success i {
+    color: #4facfe;
+}
+
+.notification.error i {
+    color: #f5576c;
+}
+
+.notification.info i {
+    color: #667eea;
+}
+
+.notification span {
+    flex: 1;
+    color: #333;
+    font-weight: 500;
+}
+
+.notification button {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0.2rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.notification button:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Booking Success Modal */
+.booking-success-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.booking-success-modal.show {
+    opacity: 1;
+}
+
+.success-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8);
+    transition: all 0.5s ease;
+}
+
+.booking-success-modal.show .success-content {
+    transform: scale(1);
+}
+
+.success-animation {
+    margin-bottom: 2rem;
+}
+
+.success-animation i {
+    font-size: 4rem;
+    color: #4facfe;
+    animation: successPulse 1s ease-out;
+}
+
+.success-content h2 {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.ticket-summary {
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.ticket-summary h3 {
+    color: #667eea;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.ticket-summary p {
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.success-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* Delay Badge */
+.delay-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    animation: delayPulse 2s infinite;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-5deg) scale(1.1); }
+    75% { transform: rotate(5deg) scale(1.1); }
+}
+
+@keyframes successPulse {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes delayPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .weather-widget, .live-status-widget {
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        margin: 1rem;
+        width: calc(100% - 2rem);
+    }
+    
+    .loyalty-points {
+        margin: 0.5rem 0;
+        font-size: 0.8rem;
+    }
+    
+    .notification {
+        right: -350px;
+        max-width: 300px;
+    }
+    
+    .notification.show {
+        right: 1rem;
+    }
+    
+    .success-content {
+        padding: 2rem;
+        margin: 1rem;
+    }
+    
+    .success-actions {
+        flex-direction: column;
+    }
+}

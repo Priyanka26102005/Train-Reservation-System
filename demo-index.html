@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrainGO - Demo Version</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .header_but {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .header_but:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .demo-banner {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: #feca57;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .tech-stack h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
+        .demo-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .demo-info h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .demo-info p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .run-instructions {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: left;
+        }
+
+        .run-instructions code {
+            color: #feca57;
+            font-family: 'Courier New', monospace;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        🚀 DEMO VERSION - This is a static HTML preview of the TrainGO Java Web Application
+    </div>
+
+    <div class="header">
+        <h1>🚆 TrainGO</h1>
+        <div class="mysts">
+            <button class="header_but" onclick="alert('This is a demo version. Please run the Java application for full functionality.')">Login</button>
+            <button class="header_but" onclick="alert('This is a demo version. Please run the Java application for full functionality.')">SignUp</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="demo-info">
+            <h2>🎯 TrainGO - Complete Train Reservation System</h2>
+            <p>A comprehensive Java web application built with Servlets, JSP, and MySQL for managing train reservations, user accounts, and administrative functions.</p>
+            
+            <div class="run-instructions">
+                <h3 style="color: #feca57; margin-bottom: 1rem;">🔧 How to Run the Full Application:</h3>
+                <p><strong>1.</strong> Open Eclipse IDE</p>
+                <p><strong>2.</strong> Import the TrainGO project</p>
+                <p><strong>3.</strong> Configure Tomcat server</p>
+                <p><strong>4.</strong> Set up MySQL database with name: <code>train</code></p>
+                <p><strong>5.</strong> Run on server: <code>http://localhost:8080/TrainGO/</code></p>
+            </div>
+        </div>
+
+        <div class="tech-stack">
+            <h2>🛠️ Technology Stack</h2>
+            <div class="tech-badges">
+                <span class="tech-badge">☕ Java Servlets</span>
+                <span class="tech-badge">📄 JSP</span>
+                <span class="tech-badge">🗄️ MySQL</span>
+                <span class="tech-badge">🔗 JDBC</span>
+                <span class="tech-badge">🎨 CSS3</span>
+                <span class="tech-badge">⚡ JavaScript</span>
+                <span class="tech-badge">🐱 Tomcat</span>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-user-plus"></i>
+                <h3>User Registration</h3>
+                <p>Complete user registration system with validation and secure authentication for passengers.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-search"></i>
+                <h3>Train Search & Booking</h3>
+                <p>Advanced search functionality to find trains, check availability, and book tickets seamlessly.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-chair"></i>
+                <h3>Seat Management</h3>
+                <p>Real-time seat availability tracking with 1st class and 3rd class seat selection options.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-user-cog"></i>
+                <h3>Admin Dashboard</h3>
+                <p>Comprehensive admin panel for managing users, trains, schedules, and reservations.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-star"></i>
+                <h3>Review System</h3>
+                <p>Passenger review and rating system with CRUD operations for feedback management.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-ticket-alt"></i>
+                <h3>Ticket Management</h3>
+                <p>Search, view, edit, and cancel ticket reservations with detailed ticket information.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Schedule Management</h3>
+                <p>Complete train schedule management with create, read, update, and delete operations.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-user-circle"></i>
+                <h3>Profile Management</h3>
+                <p>User profile management allowing passengers to update their personal information.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-database"></i>
+                <h3>Database Integration</h3>
+                <p>Robust MySQL database integration with proper connection pooling and data management.</p>
+            </div>
+        </div>
+
+        <div class="demo-info">
+            <h2>📊 Project Status</h2>
+            <p><strong>✅ Fully Functional:</strong> All features are implemented and working</p>
+            <p><strong>✅ Database Connected:</strong> MySQL integration with proper schema</p>
+            <p><strong>✅ Validation:</strong> Form validation and error handling implemented</p>
+            <p><strong>✅ Responsive Design:</strong> Modern CSS with responsive layout</p>
+            <p><strong>✅ Security:</strong> Session management and authentication</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 TrainGO - Train Reservation Management System</p>
+        <p>Built with Java Servlets, JSP, and MySQL</p>
+    </footer>
+
+    <script>
+        // Add some interactive effects
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('click', () => {
+                alert('This feature is fully implemented in the Java application!\n\nTo see it in action:\n1. Run the TrainGO project in Eclipse\n2. Access via http://localhost:8080/TrainGO/');
+            });
+        });
+    </script>
+</body>
+</html>
