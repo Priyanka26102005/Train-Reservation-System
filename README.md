@@ -56,7 +56,7 @@ TrainGO is a web-based train reservation system prototype developed using HTML, 
 ## Tools & Platform
 
 * VS Code
-* Apache Tomcat
+* Apache Tomcat(Conceptual Usage)
 * Git & GitHub
 
 ---
@@ -87,10 +87,7 @@ The database design includes:
 ```bash
 Online-Train-Reservation-System/
 │
-<<<<<<< HEAD
-├── screenshots/
-=======
->>>>>>> a13a4de0d38272b41ffa2af7329fcda3735fc49c
+├── Screenshots/
 ├── index.html
 ├── script.js
 ├── styles.css
@@ -182,25 +179,23 @@ This project was developed as a collaborative academic project by a team of 4 me
 
 # 📸 Screenshots
 
-<<<<<<< HEAD
 ## Home Page
 
-![Home Page](screenshots/home.png)
+![Home Page](Screenshots/home.png)
 
 ## Ticket Booking
 
-![Ticket Booking](screenshots/ticket.png)
+![Ticket Booking](Screenshots/ticket.png)
 
 ## Profile Page
 
-![Profile Page](screenshots/profile.png)
+![Profile Page](Screenshots/profile.png)
 
 ## All Features Page
 
-![All Features](screenshots/allpages.png)
+![All Features](Screenshots/allpages.png)
 
 ---
-
 
 # 📜 License
 
