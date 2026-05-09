@@ -87,7 +87,10 @@ The database design includes:
 ```bash
 Online-Train-Reservation-System/
 │
+<<<<<<< HEAD
 ├── screenshots/
+=======
+>>>>>>> a13a4de0d38272b41ffa2af7329fcda3735fc49c
 ├── index.html
 ├── script.js
 ├── styles.css
@@ -179,6 +182,7 @@ This project was developed as a collaborative academic project by a team of 4 me
 
 # 📸 Screenshots
 
+<<<<<<< HEAD
 ## Home Page
 
 ![Home Page](screenshots/home.png)
@@ -196,6 +200,7 @@ This project was developed as a collaborative academic project by a team of 4 me
 ![All Features](screenshots/allpages.png)
 
 ---
+
 
 # 📜 License
 
