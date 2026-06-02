@@ -1,213 +1,157 @@
-# 🚆 TrainGO — Online Train Reservation System
+# 🚆 TrainGO — Java JDBC Train Reservation System
 
-TrainGO is a web-based train reservation system prototype developed using HTML, CSS, JavaScript, Java, JDBC, and MySQL concepts. The project simulates the workflow of an online railway booking platform with features like train search, ticket booking, seat availability checking, user authentication, booking management, and interactive UI components.
+TrainGO is a web-based train reservation system built using Java JDBC, MySQL, Servlets, HTML, CSS, and JavaScript. The project demonstrates database design, transaction management, concurrency control, role-based authentication, session management, and secure database interaction using parameterized queries.
 
-> Note: This project is developed for learning and demonstration purposes using sample railway and booking data.
+The system allows users to search trains, check seat availability, book seats, generate PNRs, and manage bookings while preventing double-booking through database-level locking mechanisms.
 
 ---
 
-# 📌 Features
+# 📌 Core Features
 
 ## 👤 User Features
 
-* User Registration & Login
-* Session-based Authentication
-* Train Search by Source & Destination
-* Seat Availability Checking
-* Ticket Booking Workflow
-* Ticket Cancellation & Search
-* Profile Management
-* Reviews & Ratings System
+* User Registration and Login
+* Role-Based Authentication (User/Admin)
+* Session Management using UUID-based Session Tokens
+* Train Search by Source and Destination
+* Live Seat Availability Tracking
+* Booking History and PNR Generation
 
-## 🚉 Booking Features
+## 👨‍💼 Admin Features
 
-* Multi-step Booking Process
-* Passenger Information Handling
-* Booking Confirmation
-* Simulated PNR Generation
-* Seat-locking Logic Simulation
-* Booking Validation
+* Create New Trains
+* Update Train Details
+* Delete Trains
+* View All Trains
+* View Booking Records
+* Automatic Seat Generation when New Trains are Added
 
-## 🎨 UI & Additional Features
+## 🚉 Booking Engine
 
-* Responsive User Interface
-* Live Weather Widget
-* Simulated Live Train Status
-* Loyalty Points System
-* Dashboard Pages
-* Food Ordering & Station Services Sections
+* Transaction-Based Seat Booking
+* Row-Level Locking using `SELECT ... FOR UPDATE`
+* Automatic Rollback on Failed Bookings
+* Unique PNR Generation
+* Concurrent Booking Protection
 
 ---
 
-# 🛠️ Tech Stack
+# 🛠️ Technologies Used
 
-## Frontend
+Backend:
+
+* Java SE
+* JDBC
+* Java Servlets
+* MySQL
+
+Frontend:
 
 * HTML5
 * CSS3
 * JavaScript
 
-## Backend Concepts
+Server:
 
-* Java
-* JDBC
-* MySQL
+* Apache Tomcat
 
-## Tools & Platform
+Database Driver:
 
-* VS Code
-* Apache Tomcat(Conceptual Usage)
-* Git & GitHub
+* MySQL Connector/J
 
 ---
 
 # 🗄️ Database Design
 
-The project uses sample relational database structures for learning purposes.
+The application uses a normalized relational schema consisting of:
 
-## Main Tables
+1. users
+2. trains
+3. seats
+4. bookings
 
-* users
-* trains
-* tickets
-* passengers
-* reviews
+Relationships are maintained using foreign key constraints.
 
-The database design includes:
+Performance optimization is achieved through:
 
-* Foreign key relationships
-* Normalized table structure
-* Booking and passenger mapping
-* User authentication data
+CREATE INDEX idx_train_status ON seats(train_id, status);
+
+which improves seat availability lookup performance.
 
 ---
 
-# 📂 Project Structure
+# 🧠 Backend Engineering Concepts Demonstrated
 
-```bash
-Online-Train-Reservation-System/
-│
-├── Screenshots/
-├── index.html
-├── script.js
-├── styles.css
-├── modern-features.js
-├── reference-design.css
-├── weather-styles.css
-├── database.sql
-└── README.md
-```
+## Transaction Management
 
----
+Seat booking operations run inside JDBC transactions using:
 
-# ⚙️ How to Run the Project
+* setAutoCommit(false)
+* commit()
+* rollback()
 
-## Prerequisites
+to ensure data consistency.
 
-* VS Code
-* Live Server Extension
+## Concurrency Control
 
----
+The system uses:
 
-## Steps to Run
+SELECT ... FOR UPDATE
 
-1. Clone the repository
+to lock seat records during booking and prevent multiple users from booking the same seat simultaneously.
 
-```bash
-git clone https://github.com/your-username/Online-Train-Reservation-System.git
-```
+## SQL Injection Prevention
 
-2. Open the project folder in VS Code
+All user input is processed using PreparedStatement instead of dynamic SQL string concatenation.
 
-3. Install the **Live Server** extension
+## Session Management
 
-4. Right-click on `index.html`
+A SessionManager component generates UUID-based session tokens, validates active sessions, supports timeout handling, and performs logout operations.
 
-5. Select:
+## Role-Based Access Control (RBAC)
 
-```text
-Open with Live Server
-```
+User roles are stored in the database and authorization checks restrict administrative functionality to admin users only.
 
-6. The project will run locally at:
+## JDBC Batch Processing
 
-```text
-http://127.0.0.1:5500/index.html
-```
+Administrative train creation automatically generates seat records using JDBC batch operations for improved efficiency.
 
 ---
 
-# 🧠 Concepts Used
+# 📊 Performance Benchmarking
 
-* Object-Oriented Programming (OOP)
-* JDBC Connectivity Concepts
-* CRUD Operations
-* Session Management
-* Database Normalization
-* Responsive Web Design
-* Multi-page Booking Workflow
-* Frontend State Handling
-* Local Storage Usage
+PerformanceTest.java benchmarks seat availability queries with and without indexing.
+
+The benchmark demonstrates the effect of composite indexing on query performance and provides measurable performance comparisons based on the local database environment.
 
 ---
 
 # 🚀 Future Improvements
 
-* Real-time database integration
-* Payment gateway support
-* JWT authentication
-* Email/SMS notifications
-* Live train API integration
-* Admin analytics dashboard
-* Cloud deployment
+* HikariCP Connection Pooling
+* JWT Authentication
+* Email Notifications
+* SMS Notifications
+* Payment Gateway Integration
+* Cloud Deployment
 
 ---
 
 # 👥 Team Project
 
-This project was developed as a collaborative academic project by a team of 4 members.
+Developed as a team project with 4 members.
 
 ## My Contributions
 
-* Contributed to frontend UI development and booking workflow implementation
-* Assisted in database schema design and booking data handling
-* Worked on authentication and train search functionalities
-* Participated in integrating frontend pages with booking logic
-* Collaborated on testing, debugging, and overall feature development
-
----
-
-# 📸 Screenshots
-
-## Home Page
-
-![Home Page](Screenshots/home.png)
-
-## Ticket Booking
-
-![Ticket Booking](Screenshots/ticket.png)
-
-## Profile Page
-
-![Profile Page](Screenshots/profile.png)
-
-## All Features Page
-
-![All Features](Screenshots/allpages.png)
+* Implemented booking workflow and reservation logic
+* Worked on JDBC database integration
+* Contributed to schema design and indexing
+* Implemented authentication and train search features
+* Participated in testing and debugging
+* Worked on frontend-backend integration
 
 ---
 
 # 📜 License
 
-This project is developed for educational and learning purposes only.
-
----
-
-# 📬 Contact
-
-### Priyanka
-
-* GitHub: https://github.com/Priyanka26102005
-* LinkedIn: https://linkedin.com/in/priyanka-536247291
-
-If you found this project useful, consider giving it a ⭐ on GitHub.
+Educational project developed for learning database systems, JDBC, transaction management, and web application development.

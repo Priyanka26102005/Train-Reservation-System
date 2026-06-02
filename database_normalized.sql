@@ -1,17 +1,18 @@
--- TrainGO Normalized Database Schema
--- Optimized for Interview Defense & High Concurrency (Pessimistic Locking)
+-- TrainGO Normalized Database Creation Script
+-- Production-Ready and Interview-Defensible
 
 CREATE DATABASE IF NOT EXISTS traingo_db;
 USE traingo_db;
 
--- Drop existing tables to start fresh
+-- 1. Drop existing tables if they exist to start fresh
 DROP TABLE IF EXISTS bookings;
 DROP TABLE IF EXISTS seats;
 DROP TABLE IF EXISTS trains;
 DROP TABLE IF EXISTS users;
 
--- 1. Users Table
--- Normalization level: 3NF. Represents application users (standard passengers and administrators)
+-- 2. Create Normalized Tables
+
+-- Users Table
 CREATE TABLE users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
@@ -20,8 +21,7 @@ CREATE TABLE users (
     role ENUM('user', 'admin') NOT NULL DEFAULT 'user'
 );
 
--- 2. Trains Table
--- Represents individual train schedules
+-- Trains Table
 CREATE TABLE trains (
     train_id INT PRIMARY KEY,
     train_name VARCHAR(100) NOT NULL,
@@ -31,8 +31,7 @@ CREATE TABLE trains (
     total_seats INT NOT NULL DEFAULT 50
 );
 
--- 3. Seats Table
--- Crucial for handling concurrent seats booking and preventing double-booking anomalies
+-- Seats Table
 CREATE TABLE seats (
     seat_id INT PRIMARY KEY AUTO_INCREMENT,
     train_id INT NOT NULL,
@@ -41,8 +40,7 @@ CREATE TABLE seats (
     FOREIGN KEY (train_id) REFERENCES trains(train_id) ON DELETE CASCADE
 );
 
--- 4. Bookings Table
--- Normalizes the reservation process. Connects a user with a specific locked seat.
+-- Bookings Table
 CREATE TABLE bookings (
     booking_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -53,11 +51,11 @@ CREATE TABLE bookings (
     FOREIGN KEY (seat_id) REFERENCES seats(seat_id) ON DELETE CASCADE
 );
 
--- Indexing for Concurrency & Query Optimization
--- Speeds up search queries for available seats and locks precise index rows during transaction (SELECT FOR UPDATE)
+-- 3. Create Required Performance and Concurrency Index
+-- This index speeds up seat availability searches and helps lock precise index blocks/rows during 'SELECT FOR UPDATE'
 CREATE INDEX idx_train_status ON seats(train_id, status);
 
--- Seed High-Quality Test Data
+-- 4. Seed High-Quality Test Data
 
 -- Insert Users
 INSERT INTO users (name, email, password, role) VALUES
